@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yönetim Paneli Giriş — Yiğit Kutup</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    
+    .login-container {
+      width: 100%;
+      max-width: 420px;
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    .login-card {
+      background: var(--granite-surface);
+      border: 1px solid var(--granite-crack);
+      padding: 48px 40px;
+      position: relative;
+      box-shadow: 
+        inset 0 0 40px rgba(0,0,0,0.5),
+        4px 4px 0 var(--granite-crack);
+    }
+
+    .login-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--granite-accent), var(--granite-gold));
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .login-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px;
+      letter-spacing: 4px;
+      color: var(--granite-gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .login-subtitle {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--granite-accent);
+      text-transform: uppercase;
+    }
+
+    .login-error {
+      display: none;
+      border: 1px solid rgba(201, 110, 110, 0.3);
+      background: rgba(201, 110, 110, 0.05);
+      color: #c96e6e;
+      padding: 12px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--granite-accent);
+    }
+
+    .form-input {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 16px;
+      padding: 12px 16px;
+      border: 1px solid var(--granite-crack);
+      background: var(--granite-dark);
+      color: var(--text-primary);
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus {
+      border-color: var(--granite-gold);
+    }
+
+    .btn-submit {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 14px;
+      margin-top: 12px;
+      border: 1px solid var(--granite-accent);
+      background: transparent;
+      color: var(--granite-gold);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-submit:hover {
+      border-color: var(--granite-gold);
+      background: rgba(201, 169, 110, 0.05);
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: var(--granite-gold);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="login-logo">YK</div>
+        <div class="login-subtitle">// yönetim girişi</div>
+      </div>
+
+      <div class="login-error" id="login-error-msg">
+        Hatalı e-posta veya şifre!
+      </div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email" class="form-label">E-Posta</label>
+          <input type="email" id="email" class="form-input" required placeholder="admin@domain.com" autocomplete="off" autofocus />
+        </div>
+        <div class="form-group">
+          <label for="password" class="form-label">Şifre</label>
+          <input type="password" id="password" class="form-input" required placeholder="••••••••" />
+        </div>
+        <button type="submit" class="btn-submit" id="btn-login">
+          Giriş Yap →
+        </button>
+      </form>
+    </div>
+
+    <a href="../index.html" class="back-link">← Portfolyoya Geri Dön</a>
+  </div>
+
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="../assets/js/firebase-config.js"></script>
+
+  <script>
+    const errorMsg = document.getElementById('login-error-msg');
+    const loginForm = document.getElementById('login-form');
+    const loginBtn = document.getElementById('btn-login');
+
+    // Auto-redirect if already authenticated
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        window.location.href = 'panel.html';
+      }
+    });
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      errorMsg.style.display = 'none';
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'Giriş Yapılıyor...';
+
+      try {
+        await auth.signInWithEmailAndPassword(email, password);
+        window.location.href = 'panel.html';
+      } catch (error) {
+        console.error(error);
+        errorMsg.style.display = 'block';
+        errorMsg.textContent = 'Giriş başarısız: ' + getFriendlyMessage(error.code);
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'Giriş Yap →';
+      }
+    });
+
+    function getFriendlyMessage(errorCode) {
+      switch (errorCode) {
+        case 'auth/invalid-email':
+          return 'Geçersiz e-posta adresi.';
+        case 'auth/user-not-found':
+        case 'auth/wrong-password':
+        case 'auth/invalid-credential':
+          return 'Hatalı e-posta veya şifre.';
+        default:
+          return 'Lütfen bilgilerinizi kontrol edin.';
+      }
+    }
+  </script>
+</body>
+</html>

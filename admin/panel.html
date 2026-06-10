@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yönetim Paneli — Yiğit Kutup</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    body {
+      background-color: var(--granite-dark);
+      padding: 0;
+    }
+
+    .admin-nav {
+      background: var(--granite-surface);
+      border-bottom: 1px solid var(--granite-crack);
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .admin-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 4px;
+      color: var(--granite-gold);
+      text-decoration: none;
+    }
+
+    .admin-user-info {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .logout-btn {
+      color: #c96e6e;
+      text-decoration: none;
+      border: 1px solid rgba(201, 110, 110, 0.3);
+      padding: 6px 16px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      background: transparent;
+    }
+
+    .logout-btn:hover {
+      border-color: #c96e6e;
+      background: rgba(201, 110, 110, 0.05);
+    }
+
+    .view-site-btn {
+      color: var(--granite-gold);
+      text-decoration: none;
+      border: 1px solid var(--granite-accent);
+      padding: 6px 16px;
+      transition: all 0.3s ease;
+    }
+
+    .view-site-btn:hover {
+      border-color: var(--granite-gold);
+      background: rgba(201, 169, 110, 0.05);
+    }
+
+    .admin-content {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 40px;
+    }
+
+    .admin-header {
+      margin-bottom: 40px;
+    }
+
+    .admin-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px;
+      letter-spacing: 2px;
+      color: var(--granite-white);
+      margin-bottom: 10px;
+    }
+
+    .admin-subtitle {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--granite-accent);
+      text-transform: uppercase;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .stat-card {
+      background: var(--granite-surface);
+      border: 1px solid var(--granite-crack);
+      padding: 24px 32px;
+      position: relative;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--granite-accent);
+    }
+
+    .stat-card.unread-card::before {
+      background: var(--granite-gold);
+    }
+
+    .stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40px;
+      letter-spacing: 1px;
+      color: var(--granite-white);
+      line-height: 1;
+    }
+
+    /* Table */
+    .table-wrapper {
+      background: var(--granite-surface);
+      border: 1px solid var(--granite-crack);
+      overflow-x: auto;
+    }
+
+    .msg-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 16px;
+    }
+
+    .msg-table th, .msg-table td {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--granite-crack);
+    }
+
+    .msg-table th {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--granite-accent);
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .msg-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .msg-table tr:hover td {
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    /* Durum Badges */
+    .badge {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+    }
+
+    .badge-new {
+      background: rgba(201, 169, 110, 0.15);
+      border: 1px solid var(--granite-gold);
+      color: var(--granite-gold);
+    }
+
+    .badge-read {
+      background: rgba(74, 69, 64, 0.2);
+      border: 1px solid var(--granite-crack);
+      color: var(--text-muted);
+    }
+
+    .msg-content-box {
+      max-width: 320px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      cursor: pointer;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+
+    .msg-content-full {
+      display: none;
+      white-space: pre-wrap;
+      font-style: normal;
+      color: var(--text-primary);
+      margin-top: 8px;
+      background: var(--granite-dark);
+      padding: 12px;
+      border: 1px solid var(--granite-crack);
+      font-size: 15px;
+    }
+
+    /* Action Links */
+    .action-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .action-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 6px 12px;
+      border: 1px solid var(--granite-crack);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      background: transparent;
+    }
+
+    .btn-read {
+      color: var(--granite-gold);
+      border-color: var(--granite-accent);
+    }
+
+    .btn-read:hover {
+      border-color: var(--granite-gold);
+      background: rgba(201, 169, 110, 0.05);
+    }
+
+    .btn-delete {
+      color: #c96e6e;
+      border-color: rgba(201, 110, 110, 0.3);
+    }
+
+    .btn-delete:hover {
+      border-color: #c96e6e;
+      background: rgba(201, 110, 110, 0.05);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 80px 24px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      letter-spacing: 2px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .admin-nav {
+        padding: 20px 30px;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .admin-content {
+        padding: 0 20px;
+        margin: 40px auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ADMIN NAV -->
+  <header class="admin-nav">
+    <a href="../index.html" class="admin-logo">YK</a>
+    <div class="admin-user-info">
+      <span>Giriş Yapan: <strong id="admin-email">Yükleniyor...</strong></span>
+      <a href="../index.html" class="view-site-btn">Siteye Git</a>
+      <button class="logout-btn" id="btn-logout">Çıkış Yap</button>
+    </div>
+  </header>
+
+  <!-- MAIN PANEL -->
+  <main class="admin-content">
+    <div class="admin-header">
+      <h1 class="admin-title">Yönetim Paneli</h1>
+      <div class="admin-subtitle">// gelen mesajlar</div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Toplam Mesaj</div>
+        <div class="stat-value" id="stat-total">0</div>
+      </div>
+      <div class="stat-card unread-card">
+        <div class="stat-label">Okunmamış</div>
+        <div class="stat-value" style="color: var(--granite-gold);" id="stat-unread">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Okunmuş</div>
+        <div class="stat-value" style="color: var(--granite-muted);" id="stat-read">0</div>
+      </div>
+    </div>
+
+    <!-- MESSAGES TABLE -->
+    <div class="table-wrapper">
+      <table class="msg-table" id="messages-table" style="display:none;">
+        <thead>
+          <tr>
+            <th style="width: 50px;">#</th>
+            <th style="width: 150px;">Gönderen</th>
+            <th style="width: 180px;">E-Posta</th>
+            <th style="width: 150px;">Konu</th>
+            <th>Mesaj</th>
+            <th style="width: 150px;">Tarih</th>
+            <th style="width: 100px;">Durum</th>
+            <th style="width: 180px;">İşlemler</th>
+          </tr>
+        </thead>
+        <tbody id="messages-body">
+          <!-- Rows will be injected here dynamically -->
+        </tbody>
+      </table>
+      <div class="empty-state" id="table-loading">
+        Mesajlar yükleniyor...
+      </div>
+      <div class="empty-state" id="table-empty" style="display:none;">
+        Gelen mesaj bulunmuyor.
+      </div>
+    </div>
+  </main>
+
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="../assets/js/firebase-config.js"></script>
+
+  <script>
+    // Route guard
+    auth.onAuthStateChanged((user) => {
+      if (!user) {
+        window.location.href = 'index.html';
+      } else {
+        document.getElementById('admin-email').textContent = user.email;
+        loadMessages();
+      }
+    });
+
+    // Logout trigger
+    document.getElementById('btn-logout').addEventListener('click', () => {
+      auth.signOut().then(() => {
+        window.location.href = 'index.html';
+      });
+    });
+
+    // Toggle message height
+    function toggleMessage(id) {
+      const fullMsg = document.getElementById('full-msg-' + id);
+      if (fullMsg.style.display === 'block') {
+        fullMsg.style.display = 'none';
+      } else {
+        fullMsg.style.display = 'block';
+      }
+    }
+
+    // Mark as read
+    async function markRead(docId) {
+      try {
+        await db.collection("mesajlar").doc(docId).update({
+          okundu: true
+        });
+      } catch (error) {
+        alert("Güncelleme hatası: " + error.message);
+      }
+    }
+
+    // Delete message
+    async function deleteMessage(docId) {
+      if (confirm('Bu mesajı silmek istediğinize emin misiniz?')) {
+        try {
+          await db.collection("mesajlar").doc(docId).delete();
+        } catch (error) {
+          alert("Silme hatası: " + error.message);
+        }
+      }
+    }
+
+    // Real-time messages sync
+    function loadMessages() {
+      db.collection("mesajlar").orderBy("tarih", "desc").onSnapshot((snapshot) => {
+        const messagesTable = document.getElementById('messages-table');
+        const messagesBody = document.getElementById('messages-body');
+        const tableLoading = document.getElementById('table-loading');
+        const tableEmpty = document.getElementById('table-empty');
+
+        tableLoading.style.display = 'none';
+        
+        let total = 0;
+        let unread = 0;
+        let read = 0;
+        
+        messagesBody.innerHTML = '';
+
+        if (snapshot.empty) {
+          messagesTable.style.display = 'none';
+          tableEmpty.style.display = 'block';
+        } else {
+          messagesTable.style.display = 'table';
+          tableEmpty.style.display = 'none';
+
+          let index = 1;
+          snapshot.forEach((doc) => {
+            const data = doc.data();
+            const id = doc.id;
+            total++;
+
+            if (data.okundu) {
+              read++;
+            } else {
+              unread++;
+            }
+
+            // Convert firebase timestamp to readable string
+            let formattedDate = '—';
+            if (data.tarih) {
+              const dateObj = data.tarih.toDate();
+              formattedDate = dateObj.toLocaleDateString('tr-TR') + ' ' + dateObj.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+            }
+
+            // Limit preview characters
+            const shortMsg = data.mesaj.length > 80 ? data.mesaj.substring(0, 80) + '...' : data.mesaj;
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${index++}</td>
+              <td><strong>${escapeHtml(data.ad_soyad)}</strong></td>
+              <td><a href="mailto:${escapeHtml(data.email)}" style="color: var(--text-primary); text-decoration: none; border-bottom: 1px dotted var(--granite-accent);">${escapeHtml(data.email)}</a></td>
+              <td>${escapeHtml(data.konu || '—')}</td>
+              <td>
+                <div class="msg-content-box" onclick="toggleMessage('${id}')">
+                  ${escapeHtml(shortMsg)}
+                </div>
+                <div id="full-msg-${id}" class="msg-content-full">
+                  ${escapeHtml(data.mesaj)}
+                </div>
+              </td>
+              <td style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-muted);">
+                ${formattedDate}
+              </td>
+              <td>
+                ${data.okundu ? '<span class="badge badge-read">Okundu</span>' : '<span class="badge badge-new">Yeni</span>'}
+              </td>
+              <td>
+                <div class="action-links">
+                  ${!data.okundu ? `<button onclick="markRead('${id}')" class="action-btn btn-read">Okundu</button>` : ''}
+                  <button onclick="deleteMessage('${id}')" class="action-btn btn-delete">Sil</button>
+                </div>
+              </td>
+            `;
+            messagesBody.appendChild(tr);
+          });
+        }
+
+        // Update stats
+        document.getElementById('stat-total').textContent = total;
+        document.getElementById('stat-unread').textContent = unread;
+        document.getElementById('stat-read').textContent = read;
+      });
+    }
+
+    // HTML escape utility
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+    }
+  </script>
+</body>
+</html>

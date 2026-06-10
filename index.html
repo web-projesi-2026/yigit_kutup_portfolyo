@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yiğit Kutup — Developer</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">YK</a>
+    <ul class="nav-links">
+      <li><a href="index.html" data-text="Ana Sayfa">Ana Sayfa</a></li>
+      <li><a href="pages/about.html" data-text="Hakkımda">Hakkımda</a></li>
+      <li><a href="pages/projects.html" data-text="Projeler">Projeler</a></li>
+      <li><a href="pages/contact.html" data-text="İletişim">İletişim</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-eyebrow">Web Developer &amp; Builder</div>
+        <h1 class="hero-name">
+          Yiğit
+          <span>Kutup</span>
+        </h1>
+        <p class="hero-subtitle">
+          Kod yazarım, piksel yerleştiririm,<br>zaman zaman sahaya çıkarım.
+        </p>
+        <a href="pages/about.html" class="hero-cta">
+          Daha Fazla Keşfet
+          <span>→</span>
+        </a>
+      </div>
+
+      <div class="hero-visual">
+        <div class="stone-block">
+          <div class="stone-initials">YK</div>
+          <div class="stone-tag">// est. Türkiye</div>
+          <div class="stone-desc">PHP · HTML · CSS<br>C# · JavaScript</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS SECTION -->
+  <div class="section">
+    <div class="section-header fade-in">
+      <span class="section-number">01</span>
+      <h2 class="section-title">Beceriler</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-item">
+        <div class="skill-icon">// lang</div>
+        <div class="skill-name">PHP</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-icon">// markup</div>
+        <div class="skill-name">HTML</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-icon">// style</div>
+        <div class="skill-name">CSS</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-icon">// lang</div>
+        <div class="skill-name">C#</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-icon">// script</div>
+        <div class="skill-name">JS</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-icon">// talent</div>
+        <div class="skill-name">FIFA</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOBBIES SECTION -->
+  <div class="section">
+    <div class="section-header fade-in">
+      <span class="section-number">02</span>
+      <h2 class="section-title">İlgi Alanları</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="hobbies-grid">
+      <div class="hobby-card">
+        <div class="hobby-number">— 01</div>
+        <div class="hobby-name">Spor</div>
+        <div class="hobby-desc">Sahada, salonda veya tribünde. Spor her hâlükârda.</div>
+      </div>
+      <div class="hobby-card">
+        <div class="hobby-number">— 02</div>
+        <div class="hobby-name">Video Oyunları</div>
+        <div class="hobby-desc">İleri düzey FIFA kabiliyeti dahil. Dijital rakipler için uyarı.</div>
+      </div>
+      <div class="hobby-card">
+        <div class="hobby-number">— 03</div>
+        <div class="hobby-name">Film</div>
+        <div class="hobby-desc">Ekran karşısında, hikâye peşinde.</div>
+      </div>
+      <div class="hobby-card">
+        <div class="hobby-number">— 04</div>
+        <div class="hobby-name">Müzik</div>
+        <div class="hobby-desc">Arka fonda veya ön planda. Kulaklıklar asla çıkmıyor.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEATHER WIDGETS -->
+  <div class="section">
+    <div class="section-header fade-in">
+      <span class="section-number">03</span>
+      <h2 class="section-title">Anlık Hava Durumu</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="widgets-grid fade-in">
+      <!-- Kırşehir -->
+      <div class="widget-card weather-widget">
+        <div class="widget-header">
+          <div class="widget-label">// hava durumu</div>
+          <div class="widget-city">Kırşehir</div>
+        </div>
+        <div class="widget-body">
+          <div class="weather-main">
+            <div class="weather-icon" id="weather-kirsehir-icon">⏳</div>
+            <div class="weather-temp" id="weather-kirsehir-temp">--°C</div>
+          </div>
+          <div class="weather-desc" id="weather-kirsehir-desc">Yükleniyor...</div>
+          <div class="weather-details">
+            <div class="weather-detail">
+              <span class="detail-label">Nem</span>
+              <span class="detail-value" id="weather-kirsehir-humidity">--%</span>
+            </div>
+            <div class="weather-detail">
+              <span class="detail-label">Rüzgar</span>
+              <span class="detail-value" id="weather-kirsehir-wind">-- km/s</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- İstanbul -->
+      <div class="widget-card weather-widget">
+        <div class="widget-header">
+          <div class="widget-label">// hava durumu</div>
+          <div class="widget-city">İstanbul</div>
+        </div>
+        <div class="widget-body">
+          <div class="weather-main">
+            <div class="weather-icon" id="weather-istanbul-icon">⏳</div>
+            <div class="weather-temp" id="weather-istanbul-temp">--°C</div>
+          </div>
+          <div class="weather-desc" id="weather-istanbul-desc">Yükleniyor...</div>
+          <div class="weather-details">
+            <div class="weather-detail">
+              <span class="detail-label">Nem</span>
+              <span class="detail-value" id="weather-istanbul-humidity">--%</span>
+            </div>
+            <div class="weather-detail">
+              <span class="detail-label">Rüzgar</span>
+              <span class="detail-value" id="weather-istanbul-wind">-- km/s</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="weather-update fade-in">
+      <span id="weather-update-time">Son güncelleme: --</span>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-name">Yiğit Kutup</div>
+    <div class="footer-links">
+      <a href="pages/about.html">Hakkımda</a>
+      <a href="pages/projects.html">Projeler</a>
+      <a href="pages/contact.html">İletişim</a>
+      <a href="admin/index.html">Yönetim</a>
+    </div>
+    <div class="footer-copy">© 2026</div>
+  </footer>
+
+  <script src="assets/js/jScript.js"></script>
+  <script src="assets/js/widgets.js"></script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>İletişim — Yiğit Kutup</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="../index.html" class="nav-logo">YK</a>
+    <ul class="nav-links">
+      <li><a href="../index.html" data-text="Ana Sayfa">Ana Sayfa</a></li>
+      <li><a href="about.html" data-text="Hakkımda">Hakkımda</a></li>
+      <li><a href="projects.html" data-text="Projeler">Projeler</a></li>
+      <li><a href="contact.html" data-text="İletişim">İletişim</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <p class="hero-eyebrow" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--granite-accent);margin-bottom:24px;display:flex;align-items:center;gap:16px;">
+      <span style="display:inline-block;width:40px;height:1px;background:var(--granite-accent);"></span>
+      Ulaşın
+    </p>
+    <h1 class="page-title">İletişim</h1>
+    <p class="page-subtitle">Bir proje mi var? İş birliği mi? Ya da sadece merhaba — hepsi geçerli.</p>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section">
+    <div class="contact-grid fade-in">
+
+      <!-- LEFT: tagline + desc -->
+      <div>
+        <div class="contact-tagline">Yazalım.</div>
+        <p class="contact-text">
+          Bir fikir paylaşmak, proje konuşmak ya da sadece bağlantı kurmak için doğru yere geldiniz. Mesajlar okunur, yanıtlar gelir.
+        </p>
+      </div>
+
+      <!-- RIGHT: contact items -->
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-type">E-Posta</div>
+          <div class="contact-value">
+            <a href="mailto:yigit.kutup@hotmail.com">yigit.kutup@hotmail.com</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-type">GitHub</div>
+          <div class="contact-value">
+            <a href="https://github.com/YigitKutup" target="_blank" rel="noopener noreferrer">
+              github.com/YigitKutup
+            </a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-type">Konum</div>
+          <div class="contact-value">
+            <span style="color:var(--text-secondary);">Türkiye</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- STONE DIVIDER -->
+  <div style="max-width:1200px;margin:0 auto;padding:0 60px;">
+    <div style="height:1px;background:linear-gradient(90deg, transparent, var(--granite-crack), transparent);"></div>
+  </div>
+
+  <!-- DIRECT LINKS -->
+  <div class="section">
+    <div style="display:flex;gap:24px;flex-wrap:wrap;" class="fade-in">
+      <a href="mailto:yigit.kutup@hotmail.com"
+        style="flex:1;min-width:220px;padding:48px;background:var(--granite-surface);border:1px solid var(--granite-crack);text-decoration:none;transition:border-color 0.3s ease;display:block;"
+        onmouseover="this.style.borderColor='var(--granite-accent)'"
+        onmouseout="this.style.borderColor='var(--granite-crack)'">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--granite-accent);margin-bottom:16px;">// email</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:2px;color:var(--granite-white);">Mail Gönder</div>
+        <div style="font-size:15px;color:var(--text-muted);font-style:italic;margin-top:8px;">yigit.kutup@hotmail.com</div>
+      </a>
+
+      <a href="https://github.com/YigitKutup" target="_blank" rel="noopener noreferrer"
+        style="flex:1;min-width:220px;padding:48px;background:var(--granite-surface);border:1px solid var(--granite-crack);text-decoration:none;transition:border-color 0.3s ease;display:block;"
+        onmouseover="this.style.borderColor='var(--granite-gold)'"
+        onmouseout="this.style.borderColor='var(--granite-crack)'">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--granite-accent);margin-bottom:16px;">// code</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:2px;color:var(--granite-white);">GitHub</div>
+        <div style="font-size:15px;color:var(--text-muted);font-style:italic;margin-top:8px;">YigitKutup profilini gör →</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- İLETİŞİM FORMU -->
+  <div class="section">
+    <div class="section-header fade-in">
+      <span class="section-number">02</span>
+      <h2 class="section-title">Mesaj Gönder</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="contact-form-wrapper fade-in">
+      <div id="form-message" class="form-message" style="display:none;"></div>
+      <form id="contact-form" class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="form-name" class="form-label">Ad Soyad *</label>
+            <input type="text" id="form-name" name="ad_soyad" class="form-input" required placeholder="Adınız Soyadınız" />
+          </div>
+          <div class="form-group">
+            <label for="form-email" class="form-label">E-Posta *</label>
+            <input type="email" id="form-email" name="email" class="form-input" required placeholder="ornek@email.com" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="form-subject" class="form-label">Konu</label>
+          <input type="text" id="form-subject" name="konu" class="form-input" placeholder="Mesaj konusu" />
+        </div>
+        <div class="form-group">
+          <label for="form-message-input" class="form-label">Mesaj *</label>
+          <textarea id="form-message-input" name="mesaj" class="form-input form-textarea" required placeholder="Mesajınızı yazın..." rows="6"></textarea>
+        </div>
+        <button type="submit" id="form-submit" class="form-submit">
+          <span class="form-submit-text">Mesajı Gönder</span>
+          <span class="form-submit-icon">→</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-name">Yiğit Kutup</div>
+    <div class="footer-links">
+      <a href="../index.html">Ana Sayfa</a>
+      <a href="about.html">Hakkımda</a>
+      <a href="projects.html">Projeler</a>
+    </div>
+    <div class="footer-copy">© 2026</div>
+  </footer>
+
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="../assets/js/firebase-config.js"></script>
+
+  <script src="../assets/js/jScript.js"></script>
+  <script>
+  document.getElementById('contact-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('form-submit');
+    const msgDiv = document.getElementById('form-message');
+    const form = this;
+    
+    btn.disabled = true;
+    btn.querySelector('.form-submit-text').textContent = 'Gönderiliyor...';
+    
+    const ad_soyad = document.getElementById('form-name').value.trim();
+    const email = document.getElementById('form-email').value.trim();
+    const konu = document.getElementById('form-subject').value.trim();
+    const mesaj = document.getElementById('form-message-input').value.trim();
+    
+    try {
+      // Mesajı Firebase Firestore'a kaydet
+      await db.collection("mesajlar").add({
+        ad_soyad: ad_soyad,
+        email: email,
+        konu: konu,
+        mesaj: mesaj,
+        tarih: firebase.firestore.FieldValue.serverTimestamp(),
+        okundu: false
+      });
+      
+      msgDiv.style.display = 'block';
+      msgDiv.className = 'form-message success';
+      msgDiv.textContent = 'Mesajınız başarıyla iletildi. En kısa sürede geri dönüş yapılacaktır.';
+      form.reset();
+    } catch (error) {
+      console.error("Firebase Hatası:", error);
+      msgDiv.style.display = 'block';
+      msgDiv.className = 'form-message error';
+      msgDiv.textContent = 'Bağlantı hatası veya Firebase yapılandırma hatası! Lütfen ayarlarınızı kontrol edin.';
+    }
+    
+    btn.disabled = false;
+    btn.querySelector('.form-submit-text').textContent = 'Mesajı Gönder';
+    
+    setTimeout(() => { 
+      msgDiv.style.display = 'none'; 
+    }, 5000);
+  });
+  </script>
+</body>
+</html>
